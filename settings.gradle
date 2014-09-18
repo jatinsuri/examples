@@ -17,3 +17,6 @@ include 'services:webservice'
 */
 
 rootProject.name = 'examples'
+include 'Hello'
+include "Try"
+

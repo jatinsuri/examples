@@ -22,4 +22,9 @@ git init
 git add .
 ```
 
+## 2. Multi Project Setup
+
+Most of the magic is in the build.gradle in the root project. For each new project, create a dirtory and include it in settings.gradle.
+
+Using the 'subprojects' section, common configuration options for all subprojects can be applied. Checkout the 'Hello' subproject as an example of a simple java project containing a java application aas well as a library.
 
