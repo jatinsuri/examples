@@ -13,18 +13,27 @@ gradle init --type java-library
 
 Create a useful gitignore file (gitignore.io):
 ```
-gi java,eclipse,gradle
+gi java,eclipse,gradle > .gitignore
 ```
 
 Initialize a empty git repo and make an initial commit:
 ```
 git init
 git add .
+git commit -m "Initial Commit"
 ```
 
 ## 2. Multi Project Setup
 
-Most of the magic is in the build.gradle in the root project. For each new project, create a dirtory and include it in settings.gradle.
+Most of the magic is in the build.gradle in the root project. For each new project, create a directory and include it in settings.gradle.
 
 Using the 'subprojects' section, common configuration options for all subprojects can be applied. Checkout the 'Hello' subproject as an example of a simple java project containing a java application aas well as a library.
+
+Here are the steps to create a new project:
+```
+mkdir NewProject
+echo "include 'NewProject'" >> settings.gradle
+gradle NewProject:initJavaProject
+gradle NewProject:eclipse
+```
 
