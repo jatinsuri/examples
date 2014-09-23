@@ -1,0 +1,34 @@
+<configuration>
+	<!--  Sample Patterns:
+		 
+		 From logback manual: 	<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+		 Good for Consoles:		<pattern>%.-25(%d{HH:mm:ss.SSS} [%thread)] %highlight(%level) %logger{20} - %msg %n</pattern>
+		 Limit level to 1 char:	<pattern>%.-25(%d{HH:mm:ss.SSS} [%thread)] %.-1level %logger{35} - %msg %n</pattern>
+	-->
+
+	<timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+  	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    	<file>FrameworkExample.log</file>
+    	<encoder>
+      		<pattern>%d{HH:mm:ss.SSS} [%thread] %level %logger{20} - %msg %n</pattern>
+    	</encoder>
+  	</appender>
+  	
+  	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    	<encoder>
+      		<pattern>%.-25(%d{HH:mm:ss.SSS} [%thread)] %highlight(%level) %logger{20} - %msg %n</pattern>
+    	</encoder>
+  	</appender>
+
+  	<root>
+    	<appender-ref ref="FILE" />
+    </root>
+  	
+  	<logger name="FrameworkExample" additivity="false" level="INFO">
+  		<appender-ref ref="STDOUT"/>
+  	</logger>
+  	
+  	<logger name="org.apache.zookeeper" level="OFF"/>
+  	<logger name="org.apache.curator" level="DEBUG"/>
+</configuration>

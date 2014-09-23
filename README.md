@@ -37,3 +37,10 @@ gradle NewProject:initJavaProject
 gradle NewProject:eclipse
 ```
 
+## 3. Curator
+
+This is an example of a java application to run some simple tests for the Apache Curator APIs. It uses the gradle application plugin in this project's build.gradle.
+
+TODO: Need to find a nice way to pass some specific System properties to the application JVM. Currently we just dump all of the system properties of the gradle JVM to the application JVM.
+
+

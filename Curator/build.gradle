@@ -1,0 +1,17 @@
+apply plugin: 'application'
+
+dependencies {
+	compile 'org.apache.curator:curator-framework:2.6.0'
+	runtime 'ch.qos.logback:logback-classic:1.1.2'
+}
+
+mainClassName = 'FrameworkExample'
+
+
+run {
+	// Quick and dirty hack to pass all of Gradle JVM's system properties
+	systemProperties System.getProperties()
+	
+	// Make sure that we a valid standard input
+	standardInput = System.in
+}
