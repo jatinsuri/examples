@@ -29,11 +29,11 @@ public class FrameworkExample {
 	private final static Scanner 	scanner	= new Scanner(System.in);
 	
 	// Some constants to guide the execution
-	private final int SLEEP_TIME 	= Integer.getInteger("SLEEP_TIME", 1000);
-	private final int MAX_RETRIES	= Integer.getInteger("MAX_RETRIES", 3);
-	private final int TIMEOUT		= Integer.getInteger("TIMEOUT", 30);
+	private final static int SLEEP_TIME 	= Integer.getInteger("SLEEP_TIME", 1000);
+	private final static int MAX_RETRIES	= Integer.getInteger("MAX_RETRIES", 3);
+	private final static int TIMEOUT		= Integer.getInteger("TIMEOUT", 30);
 	
-	private final String CONNECT_STRING = System.getProperty("CONNECT_STRING", "localhost:2181");
+	private final static String CONNECT_STRING = System.getProperty("CONNECT_STRING", "localhost:2181");
 	
 	/**
 	 * Obtains an instance of a CuratorFramework client and starts it and then
@@ -86,6 +86,7 @@ public class FrameworkExample {
 	public static void main(String[] args) {
 		FrameworkExample example = new FrameworkExample();
 		example.connectAndWait();
+		System.exit(0);
 	}
 	
 	/**

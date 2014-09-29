@@ -7,11 +7,13 @@ dependencies {
 
 mainClassName = 'FrameworkExample'
 
+// Set runtimeJvmArgs property either via gradle.properties or via gradle
+// command line (For ex. -PruntimeJvmArgs="-DTIMEOUT=10 -DMAX_RETRIES=5")
+applicationDefaultJvmArgs = project.hasProperty("runtimeJvmArgs") ?
+								runtimeJvmArgs.tokenize() :
+								[]
 
 run {
-	// Quick and dirty hack to pass all of Gradle JVM's system properties
-	systemProperties System.getProperties()
-	
 	// Make sure that we a valid standard input
 	standardInput = System.in
 }
