@@ -41,5 +41,16 @@ subprojects {
 			}
 		}
 	}
+	
+	// This is a task to create a skeletal project. Creates directory structure according
+	// to the applied plugins
+	task initProject(description: 'Initialize a Project') << {
+		sourceSets.each {
+			it.allSource.srcDirs.each {
+				println "Creating $it"
+				it.mkdirs();
+			}
+		}
+	}
 }
 

@@ -1,0 +1,19 @@
+apply plugin: 'application'
+
+dependencies {
+	compile 'org.apache.avro:avro:1.7.7'
+	runtime 'ch.qos.logback:logback-classic:1.1.2'
+}
+
+mainClassName = 'example.AvroExample'
+
+// Set runtimeJvmArgs property either via gradle.properties or via gradle
+// command line (For ex. -PruntimeJvmArgs="-DTIMEOUT=10 -DMAX_RETRIES=5")
+applicationDefaultJvmArgs = project.hasProperty("runtimeJvmArgs") ?
+								runtimeJvmArgs.tokenize() :
+								[]
+
+run {
+	// Make sure that we a valid standard input
+	standardInput = System.in
+}
