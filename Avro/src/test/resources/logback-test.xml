@@ -1,0 +1,21 @@
+<configuration>
+	<!--  Sample Patterns:
+		 
+		 From logback manual: 	<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+		 Good for Consoles:		<pattern>%.-25(%d{HH:mm:ss.SSS} [%thread)] %highlight(%level) %logger{20} - %msg %n</pattern>
+		 Limit level to 1 char:	<pattern>%.-25(%d{HH:mm:ss.SSS} [%thread)] %.-1level %logger{35} - %msg %n</pattern>
+	-->
+
+	<timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+  	
+  	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    	<encoder>
+      		<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %M - %msg%n</pattern>
+    	</encoder>
+  	</appender>
+  	
+  	<root level="debug">
+    	<appender-ref ref="STDOUT" />
+  	</root>
+
+</configuration>

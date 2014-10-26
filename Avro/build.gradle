@@ -1,19 +1,55 @@
-apply plugin: 'application'
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.3.2"
+	}
+} 
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'com.commercehub.gradle.plugin.avro-base'
+
+sourceSets {
+	// Declare a new Source Set for generated sources for testing
+	test_generated
+	
+	// Add outputs of generated sources to test classpaths
+	test {
+		compileClasspath += sourceSets.test_generated.output
+		runtimeClasspath += sourceSets.test_generated.output
+	}
+}
 
 dependencies {
-	compile 'org.apache.avro:avro:1.7.7'
-	runtime 'ch.qos.logback:logback-classic:1.1.2'
+	compile 'org.apache.avro:avro:[1.7.7,)'
+	runtime 'ch.qos.logback:logback-classic:[1.1.2,)'
+	
+	// Test cases are written in Grovy and they use Avro generated sources
+	testCompile 'org.codehaus.groovy:groovy-all:2.3.7'
+	testCompile 'ch.qos.logback:logback-classic:[1.1.2,)'
+	
+	// In order to compile generated Avro java sources
+	test_generatedCompile 'org.apache.avro:avro:[1.7.7,)'
 }
 
-mainClassName = 'example.AvroExample'
-
-// Set runtimeJvmArgs property either via gradle.properties or via gradle
-// command line (For ex. -PruntimeJvmArgs="-DTIMEOUT=10 -DMAX_RETRIES=5")
-applicationDefaultJvmArgs = project.hasProperty("runtimeJvmArgs") ?
-								runtimeJvmArgs.tokenize() :
-								[]
-
-run {
-	// Make sure that we a valid standard input
-	standardInput = System.in
+// This task generates Java sources for Avro files in test
+task generateSourcesForTest(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+	// Add the resource directory(s) of the test Source Set
+	source sourceSets.test.resources.srcDirs
+	
+	// Set destination to the default java source directory 
+	// of the test_generated Source Set
+	outputDir = file(sourceSets.test_generated.java.srcDirs[0])
+	
+	// Only consider avro schema files
+	include("**/*.avsc")
 }
+
+// Set task dependencies:
+// Before you can compile generated sources, generate them
+compileTest_generatedJava.dependsOn generateSourcesForTest
+
+// Also clean generated sources
+clean.dependsOn cleanGenerateSourcesForTest
