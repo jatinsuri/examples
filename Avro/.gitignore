@@ -1,0 +1,3 @@
+# Ignore generated sources
+src/test_generated
+
